@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% block head %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title>IMS | {% block title %}{% endblock %}</title>
+</head>
+{% endblock %}
+
+<body>
+  <header>
+    <a href="{% url 'Inventory:home' %}">
+      <h1 id="logo">IMS</h1>
+    </a>
+    {% if request.user.is_authenticated %}
+    <div class="profile">
+      <p>Welcome, <b>{{ request.user.username }}</b></p>
+    </div>
+    {% else %}
+    <div class="links">
+      <a id="link" href="{% url 'Core:login' %}">Sign In</a>
+    </div>
+    {% endif %}
+  </header>
+  {% if messages %}
+  <div class="tops">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+      <p id="flash">{{ message }}</p>
+      <span id="close">&times</span>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  <div class="container">
+    {% block body %}
+    {% endblock %}
+  </div>
+</body>
+
+</html>

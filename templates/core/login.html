@@ -1,0 +1,38 @@
+{% extends "core/base.html" %}
+
+{% load static %}
+
+{% block head %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block body %}
+<div class="form">
+  <h1>Sign In</h1>
+  <form action="#" method="post">
+    {% csrf_token %}
+    {% if form.errors or form.non_fiel_errors %}
+    <div class="errors">
+      {% for field in form %}
+      {{ fiel.errors }}
+      {% endfor %}
+      {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+    <div class="input">
+      <label>Username</label>
+      {{ form.username }}
+    </div>
+    <div class="input">
+      <label>Password:</label>
+      {{ form.password }}
+    </div>
+    <button type="submit">Login</button>
+  </form>
+</div>
+{% endblock %}
