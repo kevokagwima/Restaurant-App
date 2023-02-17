@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --main-bgcolor: #007355;
+  --sec-bgcolor: #2d2d2d;
+  --white: #ffffff;
+  --grey: grey;
+  --aliceblue: aliceblue;
+  --whitesmoke: whitesmoke;
+  --red: #ec1848;
+  --border-radius: 0.3rem;
+  --logo-font: "Josefin Sans", sans-serif;
+  --footer-font: "Nunito", sans-serif;
+  --font-1: "Quicksand", sans-serif;
+  --links-font: "Open Sans", sans-serif;
+}
+
+body {
+  background-color: var(--main-bgcolor);
+}
+
+a {
+  text-decoration: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+::-webkit-scrollbar {
+  background-color: transparent;
+  width: 0.2rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--grey);
+  border-radius: 30rem;
+}
