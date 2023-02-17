@@ -9,7 +9,7 @@ header {
 .container {
   margin: 0;
   padding: 0;
-  background-color: var(--whitesmoke);
+  background-color: var(--aliceblue);
   min-height: 100vh;
   max-height: 100vh;
   overflow: auto;
@@ -60,7 +60,8 @@ header {
   gap: 0.8rem;
 }
 
-.active {
+.active,
+.actives {
   background-color: var(--white);
   color: #212121;
 }
@@ -154,6 +155,54 @@ header {
 .tabcontent > div {
   border-radius: 0.3rem;
   margin-top: 0.8rem;
+}
+
+.order {
+  display: grid;
+  grid-template-columns: 1fr 0.4fr;
+  gap: 2rem;
+}
+
+.cart {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  height: max-content;
+}
+
+.menu-box {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.menu-categories {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  background-color: cornflowerblue;
+  cursor: pointer;
+  color: white;
+}
+
+.menu-contents {
+  grid-column: 1/5;
+  background-color: var(--white);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+}
+
+.tabcontents #header {
+  font-size: 2ch;
+}
+
+.menu-items {
+  margin-top: 1rem;
+}
+
+.menu--item {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  background-color: var(--whitesmoke);
 }
 
 .dashboard {

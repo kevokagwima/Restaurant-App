@@ -13,6 +13,7 @@ class User_Profile(models.Model):
 class Category(models.Model):
   title = models.TextField(max_length=20)
   tag = models.TextField(max_length=20)
+  category_img = models.ImageField(upload_to="Category_images", default="cereal.png")
 
   class Meta:
     ordering = ('title', )
@@ -28,8 +29,8 @@ class Brand(models.Model):
     return self.name
 
 class Item(models.Model):
-  category = models.ForeignKey(Category, on_delete=models.CASCADE)
-  brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
+  category = models.ForeignKey(Category, related_name="items", on_delete=models.CASCADE)
+  brand = models.ForeignKey(Brand, related_name="items",  on_delete=models.CASCADE)
   name = models.TextField(max_length=30, null=False)
   tag = models.TextField(max_length=10, null=False)
   quantity = models.IntegerField(default=0)

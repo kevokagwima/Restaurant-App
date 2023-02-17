@@ -26,6 +26,14 @@ Home
         </div>
         <p>Dashboard</p>
       </div>
+      <a href="{% url 'Order:home' %}">
+        <div class="menu-item">
+          <div class="menu-item-img">
+            <img src="{% static 'Images/order.png' %}" alt="order">
+          </div>
+          <p>POS</p>
+        </div>
+      </a>
       <div class="menu-item" onclick="openView(event, 'item')">
         <div class="menu-item-img">
           <img src="{% static 'Images/product.png' %}" alt="items">
@@ -51,7 +59,7 @@ Home
         <p>Reports</p>
       </div>
     </div>
-    <!-- <a href="{% url 'Core:logout' %}">
+    <!-- <a href="{% url 'Mpesa:lipa_na_mpesa' %}">
       <div class="logout">
         <div class="logout-img">
           <img src="{% static 'Images/logout.png' %}" alt="Logout">
@@ -80,6 +88,36 @@ Home
       </div>
     </div>
     <div class="main-content">
+      <div id="order" class="tabcontent">
+        <h4 id="header">Order</h4>
+        <p id="more-info">Make orders in this tab</p>
+        <div class="order">
+          <div class="menu-box">
+            {% for category in categories %}
+            <div class="menu-categories" onclick="menuItem(event, '{{ category.title }}')">
+              <h4>{{ category.title }}</h4>
+            </div>
+            {% endfor %}
+            <div class="menu-contents">
+              {% for category in categories %}
+              <div id="{{ category.title }}" class="tabcontents">
+                <h4 id="header">{{ category.title }}</h4>
+                <div class="menu-items">
+                  {% for item in items %}
+                  {% if item.category == category %}
+                  <div class="menu--item">
+                    <p>{{ item.name }}</p>
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="cart"></div>
+        </div>
+      </div>
       <div id="dashboard" class="tabcontent">
         <h4 id="header">Dashboard</h4>
         <p id="more-info">This tab shows generalized information</p>
