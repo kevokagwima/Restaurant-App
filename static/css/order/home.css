@@ -11,6 +11,8 @@
   min-width: 15vw;
   max-width: 15vw;
   min-height: 100%;
+  max-height: 100%;
+  overflow: auto;
   position: relative;
 }
 
@@ -32,7 +34,8 @@
   font-family: var(--logo-font);
 }
 
-.menu {
+.menu,
+.settings {
   display: grid;
   gap: 1rem;
   padding: 1rem;
@@ -51,18 +54,46 @@
   font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.6rem;
 }
 
 .active,
-.actives {
+.actives,
+.menu-item:hover {
   background-color: var(--white);
   color: var(--sec-bgcolor);
+}
+
+.menu-item:hover {
+  background-color: rgb(255, 255, 255, 0.5);
+  color: var(--white);
+}
+
+.menu-item-img {
+  max-height: 1.5rem;
 }
 
 .menu-item-img img,
 .logout-img img {
   max-height: 1.5rem;
+  border-radius: 50%;
+}
+
+.settings {
+  position: absolute;
+  min-width: 100%;
+  bottom: 0;
+  margin-top: 10rem;
+}
+
+.settings .menu-item {
+  outline: 2px solid rgb(255, 255, 255, 0.5);
+  border-radius: 30rem;
+}
+
+.settings .menu-item:first-child {
+  margin-bottom: 2rem;
+  background-color: rgb(255, 255, 255, 0.5);
 }
 
 .content-area {

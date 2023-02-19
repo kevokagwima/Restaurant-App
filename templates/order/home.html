@@ -41,6 +41,28 @@ Home
         <p>Orders</p>
       </div>
     </div>
+    <div class="settings">
+      <a href="#">
+        <div class="menu-item" onclick="openView(event, '')">
+          <div class="menu-item-img">
+            <img src="{{ user_profile.profile_img.url }}" alt="user-profile">
+          </div>
+          <p>{{ user.username }}</p>
+        </div>
+      </a>
+      <div class="menu-item" onclick="openView(event, 'settings')">
+        <div class="menu-item-img">
+          <img src="{% static 'Images/setting.png' %}" alt="dashboard">
+        </div>
+        <p>Settings</p>
+      </div>
+      <div class="menu-item" onclick="openView(event, 'help')">
+        <div class="menu-item-img">
+          <img src="{% static 'Images/info.png' %}" alt="dashboard">
+        </div>
+        <p>Help</p>
+      </div>
+    </div>
   </div>
   <div class="content-area">
     <div class="content-top">
@@ -92,6 +114,12 @@ Home
       </div>
       <div id="order" class="tabcontent">
         <h4 id="tab-header">Orders</h4>
+      </div>
+      <div id="settings" class="tabcontent">
+        <h4 id="tab-header">Settings</h4>
+      </div>
+      <div id="help" class="tabcontent">
+        <h4 id="tab-header">Help</h4>
       </div>
     </div>
   </div>

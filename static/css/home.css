@@ -66,6 +66,11 @@ header {
   color: #212121;
 }
 
+.menu-item:hover {
+  background-color: rgb(255, 255, 255, 0.5);
+  color: var(--white);
+}
+
 .menu-item-img img,
 .logout-img img {
   max-height: 1.5rem;
