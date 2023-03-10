@@ -13,6 +13,16 @@
 </head>
 {% endblock %}
 
+{% if messages %}
+<div class="tops">
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }}">
+    <p id="flash">{{ message }}</p>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
 <body>
   {% block body %}
   {% endblock %}

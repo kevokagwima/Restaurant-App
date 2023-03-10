@@ -1,9 +1,9 @@
 .grid-box {
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
+  gap: 0;
   min-height: 100vh;
   max-height: 100vh;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .side-nav {
@@ -14,6 +14,10 @@
   max-height: 100%;
   overflow: auto;
   position: relative;
+}
+
+.hide-side-nav {
+  display: none;
 }
 
 #hr {
@@ -98,7 +102,8 @@
 
 .content-area {
   background-color: var(--aliceblue);
-  min-width: calc(100vw - 15vw);
+  /* min-width: calc(100vw - 15vw); */
+  flex-grow: 1;
   font-family: var(--font-1);
 }
 
@@ -108,6 +113,20 @@
   align-items: center;
   padding: 0.7rem 1rem;
   background-color: var(--white);
+}
+
+.burger {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  cursor: pointer;
+}
+
+.burger > .div {
+  height: 0.1rem;
+  width: 1.5rem;
+  border-radius: 30rem;
+  background-color: var(--sec-bgcolor);
 }
 
 .content-top form input {
@@ -185,6 +204,15 @@
   background-color: #c2dbe9;
 }
 
+.category:nth-child(7) {
+  background-color: #e6dade;
+}
+
+.category:nth-child(5),
+.category:nth-child(6) {
+  display: none;
+}
+
 .category-img img {
   max-height: 2rem;
 }
@@ -206,6 +234,15 @@
   font-family: var(--logo-font);
   letter-spacing: 1px;
   font-size: 2.5ch;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#tab-header span {
+  font-size: 0.8ch;
+  color: var(--grey);
+  font-family: var(--font-1);
 }
 
 .items-box {
@@ -225,22 +262,19 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  cursor: pointer;
 }
 
 .item h4 {
   font-size: 2.2ch;
-  margin-bottom: 0.2rem;
   font-family: var(--logo-font);
+  color: #212121;
 }
 
 .item p {
+  margin-top: 1rem;
   font-size: 1.6ch;
-  margin-bottom: 1rem;
-}
-
-.item span {
-  color: var(--grey);
-  font-size: 1.4ch;
+  color: #212121;
 }
 
 #category-hr {
@@ -261,4 +295,158 @@
   margin-inline: auto;
   color: var(--grey);
   font-size: 2.2ch;
+}
+
+.cart-box {
+  min-height: calc(100% - 1.5rem);
+  overflow: hidden;
+  padding-top: 1rem;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 2rem;
+}
+
+.order-details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  min-height: max-content;
+  max-height: 17.5rem;
+  overflow: auto;
+  padding-right: 0.4rem;
+}
+
+.cart-info {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  background-color: rgb(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  height: max-content;
+}
+
+.quantity {
+  background-color: var(--main-bgcolor);
+  color: white;
+  min-width: 1rem;
+  aspect-ratio: 1/1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 1.2ch;
+  transform: translateX(0);
+  transition: 250ms ease-in-out;
+}
+
+#deleteimg {
+  max-height: 1.5rem;
+  transform: translateY(-5rem);
+  transition: 250ms ease-in-out;
+  transition-delay: 50ms;
+  position: absolute;
+  inset: 0.7rem auto auto 0.7rem;
+}
+
+.cart-info:hover .quantity,
+.cart-info:hover .order-item {
+  transform: translateX(2rem);
+}
+
+.cart-info:hover #deleteimg {
+  transform: translateY(0);
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 1;
+  margin-left: 0.6rem;
+  transform: translateX(0);
+  transition: 250ms ease-in-out;
+}
+
+#price {
+  font-weight: bold;
+  font-family: var(--logo-font);
+}
+
+.amount-details {
+  background-color: rgb(255, 255, 255, 0.3);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  height: max-content;
+}
+
+.amount-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.amount-details hr {
+  margin: 1rem 0;
+  border: none;
+  outline: 1px solid var(--whitesmoke);
+}
+
+.total {
+  margin: 0;
+}
+
+.total > p {
+  font-size: 2ch;
+}
+
+.price {
+  font-family: var(--logo-font);
+  font-weight: bold;
+  font-size: 2ch;
+}
+
+.cart-items {
+  background-color: rgb(255, 255, 255, 0.3);
+  display: grid;
+  align-items: center;
+}
+
+.empty {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  text-align: center;
+  max-height: max-content;
+}
+
+.empty-img img {
+  max-height: 2rem;
+}
+
+.cart-checkout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.cart-checkout a button {
+  border: none;
+  border-radius: var(--border-radius);
+  font-family: var(--font-1);
+  font-size: 1.8ch;
+  padding: 0.8em;
+  width: 100%;
+  cursor: pointer;
+}
+
+#pay {
+  background-color: var(--main-bgcolor);
+  color: white;
+}
+
+#cancel {
+  background-color: var(--red);
+  color: var(--white);
 }

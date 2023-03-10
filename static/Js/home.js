@@ -20,7 +20,7 @@ function menuItem(evt, tabName) {
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
   }
-  tablinks = document.getElementsByClassName("menu-categories");
+  tablinks = document.getElementsByClassName("category");
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" actives", "");
   }
@@ -30,6 +30,13 @@ function menuItem(evt, tabName) {
 var tablinkz;
 
 tablinkz = document.querySelectorAll(".category");
-tablinkz[2].id = "defaultOpens";
+tablinkz[0].id = "defaultOpens";
 
 document.getElementById("defaultOpens").click();
+
+const side_nav = document.querySelector(".side-nav");
+const burger = document.querySelector(".burger");
+
+burger.addEventListener("click", () => {
+  side_nav.classList.toggle("hide-side-nav");
+});

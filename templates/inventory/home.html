@@ -88,36 +88,6 @@ Home
       </div>
     </div>
     <div class="main-content">
-      <div id="order" class="tabcontent">
-        <h4 id="header">Order</h4>
-        <p id="more-info">Make orders in this tab</p>
-        <div class="order">
-          <div class="menu-box">
-            {% for category in categories %}
-            <div class="menu-categories" onclick="menuItem(event, '{{ category.title }}')">
-              <h4>{{ category.title }}</h4>
-            </div>
-            {% endfor %}
-            <div class="menu-contents">
-              {% for category in categories %}
-              <div id="{{ category.title }}" class="tabcontents">
-                <h4 id="header">{{ category.title }}</h4>
-                <div class="menu-items">
-                  {% for item in items %}
-                  {% if item.category == category %}
-                  <div class="menu--item">
-                    <p>{{ item.name }}</p>
-                  </div>
-                  {% endif %}
-                  {% endfor %}
-                </div>
-              </div>
-              {% endfor %}
-            </div>
-          </div>
-          <div class="cart"></div>
-        </div>
-      </div>
       <div id="dashboard" class="tabcontent">
         <h4 id="header">Dashboard</h4>
         <p id="more-info">This tab shows generalized information</p>
@@ -152,42 +122,6 @@ Home
               </div>
             </div>
           </div>
-          <!-- <div class="dash-items">
-            <h4>Latest Items</h4>
-            <div class="items">
-              {% for item in items reversed %}
-              <div class="item">
-                <div class="item-img">
-                  <img src="{{ item.item_img.url }}" alt="">
-                </div>
-                <div class="item-info">
-                  <h4>{{ item.name }}</h4>
-                  <p>Quantity: {{ item.quantity }}</p>
-                </div>
-              </div>
-              {% endfor %}
-            </div>
-          </div>
-          <div class="dash-users">
-            <h4>Latest Users</h4>
-            <div class="users">
-              {% for user in users reversed %}
-              <div class="user">
-                {% for user_profile in user_profiles %}
-                {% if user_profile.user == user %}
-                <div class="user-img">
-                  <img src="{{ user_profile.profile_img.url }}" alt="">
-                </div>
-                {% else %}
-                {% endif %}
-                {% endfor %}
-                <div class="user-info">
-                  <h4>{{ user.username }}</h4>
-                </div>
-              </div>
-              {% endfor %}
-            </div>
-          </div> -->
         </div>
       </div>
       <div id="item" class="tabcontent">

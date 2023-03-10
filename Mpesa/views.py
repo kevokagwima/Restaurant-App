@@ -1,4 +1,6 @@
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import redirect
+from django.contrib import messages
 import requests
 from requests.auth import HTTPBasicAuth
 import json
@@ -26,7 +28,7 @@ def lipa_na_mpesa_online(request):
     "Password": LipanaMpesaPpassword.decode_password,
     "Timestamp": LipanaMpesaPpassword.lipa_time,
     "TransactionType": "CustomerPayBillOnline",
-    "Amount": 1,
+    "Amount": 100000,
     "PartyA": 254796897011,
     "PartyB": LipanaMpesaPpassword.Business_short_code,
     "PhoneNumber": 254796897011,
@@ -34,9 +36,8 @@ def lipa_na_mpesa_online(request):
     "AccountReference": "Kevin Kagwima",
     "TransactionDesc": "Testing stk push"
   }
-
   response = requests.post(api_url, json=request, headers=headers)
-  return HttpResponse('success')
+  return redirect('Order:home')
 
 @csrf_exempt
 def register_urls(request):

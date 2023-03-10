@@ -6,6 +6,7 @@
 {% block head %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static 'css/order/home.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {% endblock %}
 
 {% block title %}
@@ -42,14 +43,12 @@ Home
       </div>
     </div>
     <div class="settings">
-      <a href="#">
-        <div class="menu-item" onclick="openView(event, '')">
-          <div class="menu-item-img">
-            <img src="{{ user_profile.profile_img.url }}" alt="user-profile">
-          </div>
-          <p>{{ user.username }}</p>
+      <div class="menu-item">
+        <div class="menu-item-img">
+          <img src="{{ user_profile.profile_img.url }}" alt="user-profile">
         </div>
-      </a>
+        <p>{{ user.username }}</p>
+      </div>
       <div class="menu-item" onclick="openView(event, 'settings')">
         <div class="menu-item-img">
           <img src="{% static 'Images/setting.png' %}" alt="dashboard">
@@ -66,6 +65,11 @@ Home
   </div>
   <div class="content-area">
     <div class="content-top">
+      <div class="burger">
+        <div class="div"></div>
+        <div class="div"></div>
+        <div class="div"></div>
+      </div>
       <form action="#">
         <input type="text" name="" id="" placeholder="Search">
       </form>
@@ -75,6 +79,24 @@ Home
         <div class="dashboard">
           <div class="main-content">
             <div class="category-box">
+              <div class="category" onclick="menuItem(event, '{{ meal_category.title }}')">
+                <div class="category-img">
+                  <img src="{{ meal_category.category_img.url }}" alt="{{ meal_category.tag }}">
+                </div>
+                <div class="category-info">
+                  <h4>{{ meal_category.title }}</h4>
+                  <p>{{ meal_category.meal.count }} Items</p>
+                </div>
+              </div>
+              <div class="category" onclick="menuItem(event, '{{ side_category.title }}')">
+                <div class="category-img">
+                  <img src="{{ side_category.category_img.url }}" alt="{{ side_category.tag }}">
+                </div>
+                <div class="category-info">
+                  <h4>{{ side_category.title }}</h4>
+                  <p>{{ side_category.side.count }} Items</p>
+                </div>
+              </div>
               {% for category in categories %}
               <div class="category" onclick="menuItem(event, '{{ category.title }}')">
                 <div class="category-img">
@@ -89,17 +111,41 @@ Home
             </div>
             <hr id="category-hr">
             <div class="category-items">
+              <div id="{{ meal_category.title }}" class="tabcontents">
+                <div class="items-box">
+                  {% for meal in meals %}
+                  <a href="{% url 'Order:new-order' meal.name %}">
+                    <div class="item">
+                      <h4>{{ meal.name }}</h4>
+                      <p>Ksh {{ meal.price }}0</p>
+                    </div>
+                  </a>
+                  {% endfor %}
+                </div>
+              </div>
+              <div id="{{ side_category.title }}" class="tabcontents">
+                <div class="items-box">
+                  {% for side in sides %}
+                  <a href="{% url 'Order:new-order' side.name %}">
+                    <div class="item">
+                      <h4>{{ side.name }}</h4>
+                      <p>Ksh {{ side.price }}0</p>
+                    </div>
+                  </a>
+                  {% endfor %}
+                </div>
+              </div>
               {% for category in categories %}
               <div id="{{ category.title }}" class="tabcontents">
-                <!-- <h4 id="tab-header">{{ category.title }}</h4> -->
                 <div class="items-box">
                   {% for item in items %}
                   {% if item.category == category %}
-                  <div class="item">
-                    <h4>{{ item.name }}</h4>
-                    <p>Ksh {{ item.price|intcomma }}0</p>
-                    <span>{{ item.quantity }} remaining</span>
-                  </div>
+                  <a href="{% url 'Order:new-order' item.name %}">
+                    <div class="item">
+                      <h4>{{ item.name }}</h4>
+                      <p>{{ item.price }}</p>
+                    </div>
+                  </a>
                   {% endif %}
                   {% endfor %}
                 </div>
@@ -108,7 +154,71 @@ Home
             </div>
           </div>
           <div class="cart">
-            <h4 id="tab-header">Cart</h4>
+            <h4 id="tab-header">
+              Cart
+              <span>
+                {{ order_items.count }}
+                {% if order_items.count == 1 %}
+                Item
+                {% else %}
+                Items
+                {% endif %}
+              </span>
+            </h4>
+            <div class="cart-box">
+              {% if active_order %}
+              <div class="cart-info-box">
+                <div class="order-details">
+                  {% for order_item in order_items %}
+                  <div class="cart-info">
+                    <a href="{% url 'Order:remove-item' order_item.unique_id %}">
+                      <img src="{% static 'Images/delete.png' %}" alt="delete" id="deleteimg">
+                    </a>
+                    <div class="quantity">
+                      <h4>{{ order_item.item_quantity }}</h4>
+                    </div>
+                    <div class="order-item">
+                      <p>{{ order_item.item_name }}</p>
+                      <p id="price">Ksh {% widthratio order_item.item_price 1 order_item.item_quantity %}</p>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="cart-checkout">
+                <div class="amount-details">
+                  <div class="amount-info">
+                    <p>Subtotal</p>
+                    <span id="price">Ksh 600</span>
+                  </div>
+                  <div class="amount-info">
+                    <p>Tax 10%</p>
+                    <span id="price">Ksh 60</span>
+                  </div>
+                  <hr>
+                  <div class="amount-info total">
+                    <p>Total</p>
+                    <span class="price">Ksh 660</span>
+                  </div>
+                </div>
+                <a href="{% url 'Mpesa:lipa_na_mpesa' %}">
+                  <button id="pay">Checkout</button>
+                </a>
+                <a href="#" onclick="Dajaxice.order.multiply(Dajax.process)">
+                  <button id="cancel">Cancel</button>
+                </a>
+              </div>
+              {% else %}
+              <div class="cart-items">
+                <div class="empty">
+                  <div class="empty-img">
+                    <img src="{% static 'Images/cart.png' %}" alt="cart">
+                  </div>
+                  <p id="hello">Cart is empty</p>
+                </div>
+              </div>
+              {% endif %}
+            </div>
           </div>
         </div>
       </div>
@@ -126,4 +236,29 @@ Home
 </div>
 
 <script src="{% static 'Js/home.js' %}"></script>
+<script>
+  $(document).ready(() => {
+    setInterval(() => {
+      $.ajax({
+        type: "GET",
+        url: "{% url 'Order:loadMenu' %}",
+        success: (response) => {
+          $(".meals-box").empty();
+          for (var key in response.meals) {
+            var meal = `
+              <div class="item">
+                <h4>${response.meals[key].name}</h4>
+                <p>Ksh ${response.meals[key].price}</p>
+              </div>
+            `
+            $(".meals-box").append(meal)
+          }
+        },
+        error: (response) => {
+          console.log(response)
+        },
+      })
+    }, 1000)
+  });
+</script>
 {% endblock %}
