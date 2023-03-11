@@ -17,6 +17,10 @@ def home(request):
   user_profile = User_Profile.objects.filter(user=request.user).first()
   active_order = Order.objects.filter(is_active=True).first()
   order_items = OrderItems.objects.filter(order=active_order).all()
+  total = []
+  for order_item in order_items:
+    total.append(order_item.item_price*order_item.item_quantity)
+  tax = (5*sum(total))/100
   context = {
     'categories': categories,
     'meal_category': meal_category,
@@ -27,7 +31,9 @@ def home(request):
     'user': user,
     'user_profile': user_profile,
     'active_order': active_order,
-    'order_items': order_items
+    'order_items': order_items,
+    'total': sum(total),
+    'tax': int(tax)
   }
 
   return render(request, "order/home.html", context)

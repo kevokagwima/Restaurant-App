@@ -167,6 +167,7 @@
   padding: 1rem;
   border-bottom: var(--border-radius);
   min-width: 20rem;
+  max-width: 20rem;
   border-radius: var(--border-radius);
   min-height: 100%;
 }

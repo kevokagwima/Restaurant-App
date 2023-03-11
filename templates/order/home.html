@@ -143,7 +143,7 @@ Home
                   <a href="{% url 'Order:new-order' item.name %}">
                     <div class="item">
                       <h4>{{ item.name }}</h4>
-                      <p>{{ item.price }}</p>
+                      <p>{{ item.price }}0</p>
                     </div>
                   </a>
                   {% endif %}
@@ -179,7 +179,10 @@ Home
                     </div>
                     <div class="order-item">
                       <p>{{ order_item.item_name }}</p>
-                      <p id="price">Ksh {% widthratio order_item.item_price 1 order_item.item_quantity %}</p>
+                      <p id="price">Ksh
+                        {% widthratio order_item.item_price 1 order_item.item_quantity as item_total %}
+                        {{ item_total|intcomma }}
+                      </p>
                     </div>
                   </div>
                   {% endfor %}
@@ -189,16 +192,16 @@ Home
                 <div class="amount-details">
                   <div class="amount-info">
                     <p>Subtotal</p>
-                    <span id="price">Ksh 600</span>
+                    <span id="price">Ksh {{ total|intcomma }}</span>
                   </div>
                   <div class="amount-info">
-                    <p>Tax 10%</p>
-                    <span id="price">Ksh 60</span>
+                    <p>Tax 5%</p>
+                    <span id="price">Ksh {{ tax }}</span>
                   </div>
                   <hr>
                   <div class="amount-info total">
                     <p>Total</p>
-                    <span class="price">Ksh 660</span>
+                    <span class="price">Ksh {{ total|add:tax|intcomma }}</span>
                   </div>
                 </div>
                 <a href="{% url 'Mpesa:lipa_na_mpesa' %}">
