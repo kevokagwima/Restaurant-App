@@ -264,6 +264,7 @@
   flex-direction: column;
   justify-content: center;
   cursor: pointer;
+  position: relative;
 }
 
 .item h4 {
@@ -276,6 +277,35 @@
   margin-top: 1rem;
   font-size: 1.6ch;
   color: #212121;
+}
+
+#quantity {
+  position: absolute;
+  bottom: 0.6rem;
+  right: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+#add,
+#minus {
+  border: none;
+  min-height: 1.5rem;
+  aspect-ratio: 1/1;
+  border-radius: var(--border-radius);
+  background-color: var(--main-bgcolor);
+  color: var(--white);
+  font-family: var(--font-1);
+  font-size: 2ch;
+  cursor: pointer;
+}
+
+#quantity span {
+  min-width: 2rem;
+  text-align: center;
+  background-color: var(--whitesmoke);
+  font-family: var(--font-1);
 }
 
 #category-hr {

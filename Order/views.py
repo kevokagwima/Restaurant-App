@@ -20,7 +20,7 @@ def home(request):
   total = []
   for order_item in order_items:
     total.append(order_item.item_price*order_item.item_quantity)
-  tax = (5*sum(total))/100
+  tax = (10*sum(total))/100
   context = {
     'categories': categories,
     'meal_category': meal_category,
@@ -59,7 +59,7 @@ def loadMenu(request):
 def newOrder(request, pk):
   active_order = Order.objects.filter(is_active=True).first()
   if active_order:
-    meal = Meals.objects.get(name=pk)
+    meal = Meals.objects.filter(name=pk).first() or Sides.objects.filter(name=pk).first() or Item.objects.filter(name=pk).first()
     if meal:
       order_item = OrderItems.objects.filter(item_name=pk).first()
       if order_item:
@@ -92,6 +92,12 @@ def newOrder(request, pk):
     messages.success(request, "A new order has been created")
 
   return redirect('Order:home')
+
+def increase_quantity(request, pk):
+  pass
+
+def decrease_quantity(request, pk):
+  pass
 
 def removeItem(request, pk):
   try:

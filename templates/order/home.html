@@ -118,6 +118,19 @@ Home
                     <div class="item">
                       <h4>{{ meal.name }}</h4>
                       <p>Ksh {{ meal.price }}0</p>
+                      {% for order_item in order_items %}
+                      {% if meal.name == order_item.item_name %}
+                      <div id="quantity">
+                        <a href="{% url 'Order:increase-quantity' meal.name %}">
+                          <button id="add">+</button>
+                        </a>
+                        <span>{{ order_item.item_quantity }}</span>
+                        <a href="{% url 'Order:decrease-quantity' meal.name %}">
+                          <button id="minus">-</button>
+                        </a>
+                      </div>
+                      {% endif %}
+                      {% endfor %}
                     </div>
                   </a>
                   {% endfor %}
@@ -130,6 +143,19 @@ Home
                     <div class="item">
                       <h4>{{ side.name }}</h4>
                       <p>Ksh {{ side.price }}0</p>
+                      {% for order_item in order_items %}
+                      {% if side.name == order_item.item_name %}
+                      <div id="quantity">
+                        <a href="{% url 'Order:increase-quantity' side.name %}">
+                          <button id="add">+</button>
+                        </a>
+                        <span>{{ order_item.item_quantity }}</span>
+                        <a href="{% url 'Order:decrease-quantity' side.name %}">
+                          <button id="minus">-</button>
+                        </a>
+                      </div>
+                      {% endif %}
+                      {% endfor %}
                     </div>
                   </a>
                   {% endfor %}
@@ -143,7 +169,20 @@ Home
                   <a href="{% url 'Order:new-order' item.name %}">
                     <div class="item">
                       <h4>{{ item.name }}</h4>
-                      <p>{{ item.price }}0</p>
+                      <p>Ksh {{ item.price }}0</p>
+                      {% for order_item in order_items %}
+                      {% if item.name == order_item.item_name %}
+                      <div id="quantity">
+                        <a href="{% url 'Order:increase-quantity' item.name %}">
+                          <button id="add">+</button>
+                        </a>
+                        <span>{{ order_item.item_quantity }}</span>
+                        <a href="{% url 'Order:decrease-quantity' item.name %}">
+                          <button id="minus">-</button>
+                        </a>
+                      </div>
+                      {% endif %}
+                      {% endfor %}
                     </div>
                   </a>
                   {% endif %}
@@ -195,7 +234,7 @@ Home
                     <span id="price">Ksh {{ total|intcomma }}</span>
                   </div>
                   <div class="amount-info">
-                    <p>Tax 5%</p>
+                    <p>Tax 10%</p>
                     <span id="price">Ksh {{ tax }}</span>
                   </div>
                   <hr>
@@ -239,7 +278,7 @@ Home
 </div>
 
 <script src="{% static 'Js/home.js' %}"></script>
-<script>
+<!-- <script>
   $(document).ready(() => {
     setInterval(() => {
       $.ajax({
@@ -263,5 +302,5 @@ Home
       })
     }, 1000)
   });
-</script>
+</script> -->
 {% endblock %}

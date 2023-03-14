@@ -98,7 +98,7 @@ input:focus {
   background-color: #fcf8e3;
 }
 
-.alert-danger {
+.alert-error {
   color: #a94442;
   background-color: #f2dede;
 }
