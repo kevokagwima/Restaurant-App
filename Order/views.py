@@ -93,11 +93,20 @@ def newOrder(request, pk):
 
   return redirect('Order:home')
 
-def increase_quantity(request, pk):
-  pass
-
 def decrease_quantity(request, pk):
-  pass
+  active_order = Order.objects.filter(is_active=True).first()
+  if active_order:
+    order_item = OrderItems.objects.filter(item_name=pk).first()
+    if order_item and order_item.item_quantity >= 2:
+      order_item.item_quantity = order_item.item_quantity - 1
+      order_item.save()
+    else:
+      order_item.delete()
+    messages.success(request, "Cart updated successfully")
+  else:
+    messages.error(request, "An error occured")
+  
+  return redirect('Order:home')
 
 def removeItem(request, pk):
   try:

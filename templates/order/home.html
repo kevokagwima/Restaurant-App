@@ -114,50 +114,46 @@ Home
               <div id="{{ meal_category.title }}" class="tabcontents">
                 <div class="items-box">
                   {% for meal in meals %}
-                  <a href="{% url 'Order:new-order' meal.name %}">
-                    <div class="item">
-                      <h4>{{ meal.name }}</h4>
-                      <p>Ksh {{ meal.price }}0</p>
+                  <div class="item">
+                    <h4>{{ meal.name }}</h4>
+                    <p>Ksh {{ meal.price }}0</p>
+                    <div id="quantity">
+                      <a href="{% url 'Order:new-order' meal.name %}">
+                        <button id="add">+</button>
+                      </a>
                       {% for order_item in order_items %}
                       {% if meal.name == order_item.item_name %}
-                      <div id="quantity">
-                        <a href="{% url 'Order:increase-quantity' meal.name %}">
-                          <button id="add">+</button>
-                        </a>
-                        <span>{{ order_item.item_quantity }}</span>
-                        <a href="{% url 'Order:decrease-quantity' meal.name %}">
-                          <button id="minus">-</button>
-                        </a>
-                      </div>
+                      <span>{{ order_item.item_quantity }}</span>
                       {% endif %}
                       {% endfor %}
+                      <a href="{% url 'Order:decrease-quantity' meal.name %}">
+                        <button id="minus">-</button>
+                      </a>
                     </div>
-                  </a>
+                  </div>
                   {% endfor %}
                 </div>
               </div>
               <div id="{{ side_category.title }}" class="tabcontents">
                 <div class="items-box">
                   {% for side in sides %}
-                  <a href="{% url 'Order:new-order' side.name %}">
-                    <div class="item">
-                      <h4>{{ side.name }}</h4>
-                      <p>Ksh {{ side.price }}0</p>
+                  <div class="item">
+                    <h4>{{ side.name }}</h4>
+                    <p>Ksh {{ side.price }}0</p>
+                    <div id="quantity">
+                      <a href="{% url 'Order:new-order' side.name %}">
+                        <button id="add">+</button>
+                      </a>
                       {% for order_item in order_items %}
                       {% if side.name == order_item.item_name %}
-                      <div id="quantity">
-                        <a href="{% url 'Order:increase-quantity' side.name %}">
-                          <button id="add">+</button>
-                        </a>
-                        <span>{{ order_item.item_quantity }}</span>
-                        <a href="{% url 'Order:decrease-quantity' side.name %}">
-                          <button id="minus">-</button>
-                        </a>
-                      </div>
+                      <span>{{ order_item.item_quantity }}</span>
                       {% endif %}
                       {% endfor %}
+                      <a href="{% url 'Order:decrease-quantity' side.name %}">
+                        <button id="minus">-</button>
+                      </a>
                     </div>
-                  </a>
+                  </div>
                   {% endfor %}
                 </div>
               </div>
@@ -166,25 +162,23 @@ Home
                 <div class="items-box">
                   {% for item in items %}
                   {% if item.category == category %}
-                  <a href="{% url 'Order:new-order' item.name %}">
-                    <div class="item">
-                      <h4>{{ item.name }}</h4>
-                      <p>Ksh {{ item.price }}0</p>
+                  <div class="item">
+                    <h4>{{ item.name }}</h4>
+                    <p>Ksh {{ item.price }}0</p>
+                    <div id="quantity">
+                      <a href="{% url 'Order:new-order' item.name %}">
+                        <button id="add">+</button>
+                      </a>
                       {% for order_item in order_items %}
                       {% if item.name == order_item.item_name %}
-                      <div id="quantity">
-                        <a href="{% url 'Order:increase-quantity' item.name %}">
-                          <button id="add">+</button>
-                        </a>
-                        <span>{{ order_item.item_quantity }}</span>
-                        <a href="{% url 'Order:decrease-quantity' item.name %}">
-                          <button id="minus">-</button>
-                        </a>
-                      </div>
+                      <span>{{ order_item.item_quantity }}</span>
                       {% endif %}
                       {% endfor %}
+                      <a href="{% url 'Order:decrease-quantity' item.name %}">
+                        <button id="minus">-</button>
+                      </a>
                     </div>
-                  </a>
+                  </div>
                   {% endif %}
                   {% endfor %}
                 </div>
