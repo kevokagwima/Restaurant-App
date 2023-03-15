@@ -43,7 +43,6 @@
   display: grid;
   gap: 1rem;
   padding: 1rem;
-  margin-top: 2rem;
 }
 
 .menu-item {
@@ -144,11 +143,10 @@
 }
 
 .main-content-box {
-  padding: 1rem;
-  margin-top: 2rem;
+  padding: 1rem 1rem 0.2rem;
   font-family: var(--font-1);
-  min-height: calc(100vh - 6.1rem);
-  max-height: calc(100vh - 6.1rem);
+  min-height: calc(100vh - 4.1rem);
+  max-height: calc(100vh - 4.1rem);
   overflow: auto;
 }
 
@@ -156,8 +154,7 @@
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 2rem;
-  min-height: calc(100vh - 8.2rem);
-  max-height: calc(100vh - 8.2rem);
+  min-height: calc(100vh - 5.3rem);
   overflow: auto;
 }
 
@@ -240,6 +237,10 @@
   align-items: center;
 }
 
+#tab-header img {
+  max-height: 1.4rem;
+}
+
 #tab-header span {
   font-size: 0.8ch;
   color: var(--grey);
@@ -251,7 +252,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  max-height: 18rem;
+  max-height: 21rem;
   overflow: auto;
   padding-right: 0.5rem;
 }
@@ -265,6 +266,11 @@
   justify-content: center;
   cursor: pointer;
   position: relative;
+  height: max-content;
+}
+
+.highlight {
+  background-image: linear-gradient(60deg, #c3e9de, #e4cdee, #fac2d9, #c2dbe9);
 }
 
 .item h4 {
@@ -294,8 +300,8 @@
   min-height: 1.5rem;
   aspect-ratio: 1/1;
   border-radius: var(--border-radius);
-  background-image: linear-gradient(60deg, #c3e9de, #e4cdee, #fac2d9, #c2dbe9);
-  color: var(--sec-bgcolor);
+  background-color: var(--main-bgcolor);
+  color: var(--white);
   font-family: var(--font-1);
   font-size: 2ch;
   cursor: pointer;
@@ -482,4 +488,57 @@
 #cancel {
   background-color: var(--red);
   color: var(--white);
+}
+
+.order-box {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.order-card {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  background-color: var(--white);
+  cursor: pointer;
+}
+
+.True {
+  background-image: linear-gradient(60deg, #c3e9de, #e4cdee, #fac2d9, #c2dbe9);
+}
+
+.order-card h4 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--logo-font);
+  font-size: 2ch;
+}
+
+.order-card h4 > span {
+  color: var(--main-bgcolor);
+  font-family: var(--font-1);
+  font-size: 1.2ch;
+}
+
+.order-card hr {
+  margin: 1rem 0;
+  border: none;
+  outline: 1px solid var(--whitesmoke);
+}
+
+.card-content {
+  display: none;
+}
+
+.card-content-box {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.card-order-item {
+  padding: 0.8rem;
+  border-radius: var(--border-radius);
+  outline: 2px solid var(--whitesmoke);
 }

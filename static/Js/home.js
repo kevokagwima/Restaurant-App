@@ -40,3 +40,18 @@ const burger = document.querySelector(".burger");
 burger.addEventListener("click", () => {
   side_nav.classList.toggle("hide-side-nav");
 });
+
+var coll = document.getElementsByClassName("order-card");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function () {
+    this.classList.toggle("toggled");
+    var content = this.lastElementChild;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}

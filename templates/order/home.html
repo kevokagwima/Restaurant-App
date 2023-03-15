@@ -189,6 +189,11 @@ Home
           <div class="cart">
             <h4 id="tab-header">
               Cart
+              {% if active_order %}
+              <a href="{% url 'Order:close-order' active_order.order_no %}">
+                <img src="{% static 'Images/delete.png' %}" alt="">
+              </a>
+              {% endif %}
               <span>
                 {{ order_items.count }}
                 {% if order_items.count == 1 %}
@@ -260,6 +265,36 @@ Home
       </div>
       <div id="order" class="tabcontent">
         <h4 id="tab-header">Orders</h4>
+        <p id="more-info">This tab shows previous active/completed/closed orders</p>
+        <div class="order-box">
+          {% for order in orders reversed %}
+          <div class="order-card {{ order.is_active }}">
+            <h4>
+              #{{ order.order_no }}
+              <span>{{ order.created_at }}</span>
+            </h4>
+            <div class="card-content {{ order.is_active }}">
+              <hr>
+              <div class="card-content-box">
+                {% for order_item in all_order_items %}
+                {% if order_item.order == order %}
+                <div class="card-order-item">
+                  <h4>{{ order_item.item_name }}</h4>
+                  <span>x {{ order_item.item_quantity }}</span>
+                  <p>
+                    {% widthratio order_item.item_price 1 order_item.item_quantity as total %}
+                    ksh {{ total|intcomma }}
+                  </p>
+                </div>
+                {% endif %}
+                {% empty %}
+                <p class="else">No order items</p>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
       </div>
       <div id="settings" class="tabcontent">
         <h4 id="tab-header">Settings</h4>

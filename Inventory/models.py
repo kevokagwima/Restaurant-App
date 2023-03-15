@@ -72,7 +72,7 @@ class Order(models.Model):
   is_active = models.BooleanField(default=True)
 
   def __str__(self):
-    return f"#{self.order_no}"
+    return f"#{self.order_no} - {self.is_active}"
 
 class OrderItems(models.Model):
   order = models.ForeignKey(Order, related_name="order", on_delete=models.CASCADE)
@@ -86,4 +86,4 @@ class OrderItems(models.Model):
     verbose_name_plural = "Order Items"
 
   def __str__(self):
-    return self.item_name
+    return f"{self.item_name} - {self.order}"

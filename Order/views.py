@@ -13,6 +13,8 @@ def home(request):
   items = Item.objects.all()
   meals = Meals.objects.all()
   sides = Sides.objects.all()
+  orders = Order.objects.all()
+  all_order_items = OrderItems.objects.all()
   user = request.user
   user_profile = User_Profile.objects.filter(user=request.user).first()
   active_order = Order.objects.filter(is_active=True).first()
@@ -33,7 +35,9 @@ def home(request):
     'active_order': active_order,
     'order_items': order_items,
     'total': sum(total),
-    'tax': int(tax)
+    'tax': int(tax),
+    'orders': orders,
+    'all_order_items': all_order_items
   }
 
   return render(request, "order/home.html", context)
@@ -58,10 +62,10 @@ def loadMenu(request):
 
 def newOrder(request, pk):
   active_order = Order.objects.filter(is_active=True).first()
+  meal = Meals.objects.filter(name=pk).first() or Sides.objects.filter(name=pk).first() or Item.objects.filter(name=pk).first()
   if active_order:
-    meal = Meals.objects.filter(name=pk).first() or Sides.objects.filter(name=pk).first() or Item.objects.filter(name=pk).first()
     if meal:
-      order_item = OrderItems.objects.filter(item_name=pk).first()
+      order_item = OrderItems.objects.filter(item_name=pk, order=active_order).first()
       if order_item:
         order_item.item_quantity = order_item.item_quantity + 1
         order_item.save()
@@ -116,6 +120,20 @@ def removeItem(request, pk):
       messages.success(request, "Order item removed")
     else:
       messages.error(request, "Order item not found")
+  except:
+    messages.error(request, "An error occured")
+
+  return redirect("Order:home")
+
+def closeOrder(request, pk):
+  try:
+    active_order = Order.objects.filter(order_no=pk).first()
+    if active_order:
+      active_order.is_active = False
+      active_order.save()
+      messages.success(request, "Order has been closed")
+    else:
+      messages.error(request, "Order not found")
   except:
     messages.error(request, "An error occured")
 
