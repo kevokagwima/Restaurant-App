@@ -493,7 +493,10 @@
 .order-box {
   margin-top: 1rem;
   display: grid;
-  gap: 0.5rem;
+  gap: 0.6rem;
+  padding: 0 0.3rem 1rem;
+  max-height: calc(100vh - 9.1rem);
+  overflow: auto;
 }
 
 .order-card {
@@ -507,18 +510,48 @@
   background-image: linear-gradient(60deg, #c3e9de, #e4cdee, #fac2d9, #c2dbe9);
 }
 
-.order-card h4 {
-  display: flex;
-  justify-content: space-between;
+.order-card-summary {
+  display: grid;
+  grid-template-columns: 5rem 5rem 8rem auto;
+  gap: 1rem;
   align-items: center;
-  font-family: var(--logo-font);
-  font-size: 2ch;
 }
 
-.order-card h4 > span {
+.order-card-summary h4 {
+  font-family: var(--logo-font);
+  font-size: 2ch;
+  max-width: max-content;
+}
+
+.order-card-stats {
+  background-color: var(--whitesmoke);
+  padding: 0.2rem 0.8rem;
+  border-radius: 30rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  max-width: max-content;
+}
+
+.order-card-stats p {
+  font-size: 1.3ch;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: bold;
+}
+
+.order-card-stats p img {
+  max-height: 1rem;
+}
+
+.order-date {
   color: var(--main-bgcolor);
   font-family: var(--font-1);
-  font-size: 1.2ch;
+  font-size: 1.5ch;
+  font-weight: bold;
+  flex-grow: 1;
+  text-align-last: right;
 }
 
 .order-card hr {
@@ -529,16 +562,39 @@
 
 .card-content {
   display: none;
+  max-width: calc(100vw - 20rem);
+  overflow: auto;
 }
 
 .card-content-box {
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
+  padding: 0.2rem 0.2rem 0.5rem;
 }
 
 .card-order-item {
   padding: 0.8rem;
   border-radius: var(--border-radius);
   outline: 2px solid var(--whitesmoke);
+  min-width: 12rem;
+  max-width: max-content;
+}
+
+#true,
+#closed {
+  padding: 0.2rem 0.8rem;
+  font-size: 1.3ch;
+  border-radius: 30rem;
+  font-family: var(--font-1);
+  max-width: max-content;
+}
+
+#true {
+  color: var(--main-bgcolor);
+  background-color: #e9fef3;
+}
+
+#closed {
+  background-color: #fef3f1;
+  color: var(--red);
 }

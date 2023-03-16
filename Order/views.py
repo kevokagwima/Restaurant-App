@@ -20,6 +20,10 @@ def home(request):
   active_order = Order.objects.filter(is_active=True).first()
   order_items = OrderItems.objects.filter(order=active_order).all()
   total = []
+  amount_dict = {
+    'order': 1,
+    'amount': 100
+  }
   for order_item in order_items:
     total.append(order_item.item_price*order_item.item_quantity)
   tax = (10*sum(total))/100
@@ -37,7 +41,7 @@ def home(request):
     'total': sum(total),
     'tax': int(tax),
     'orders': orders,
-    'all_order_items': all_order_items
+    'all_order_items': all_order_items,
   }
 
   return render(request, "order/home.html", context)
@@ -84,7 +88,9 @@ def newOrder(request, pk):
       messages.error(request, "Item not found")
       return redirect('Order:home')
   else:
-    new_order = Order.objects.create()
+    new_order = Order.objects.create(
+      order_no=random.randint(100000,999999)
+    )
     new_order.save()
     new_order_item = OrderItems.objects.create(
       order = new_order,
@@ -127,7 +133,7 @@ def removeItem(request, pk):
 
 def closeOrder(request, pk):
   try:
-    active_order = Order.objects.filter(order_no=pk).first()
+    active_order = Order.objects.filter(order_no=pk, is_active=True).first()
     if active_order:
       active_order.is_active = False
       active_order.save()

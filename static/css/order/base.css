@@ -26,6 +26,7 @@
 
 body {
   background-color: var(--whitesmoke);
+  scrollbar-gutter: stable both-edges;
 }
 
 a {
@@ -39,6 +40,7 @@ input:focus {
 ::-webkit-scrollbar {
   background-color: transparent;
   width: 0.2rem;
+  height: 0.1rem;
 }
 
 ::-webkit-scrollbar-thumb {

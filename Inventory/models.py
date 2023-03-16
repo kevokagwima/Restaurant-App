@@ -67,7 +67,7 @@ class Sides(models.Model):
     return self.name
 
 class Order(models.Model):
-  order_no = models.IntegerField(default=random.randint(100000,999999))
+  order_no = models.IntegerField()
   created_at = models.DateTimeField(default=datetime.now())
   is_active = models.BooleanField(default=True)
 

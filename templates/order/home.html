@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load humanize %}
+{% load mathfilters %}
 
 {% block head %}
 {{ block.super }}
@@ -269,10 +270,31 @@ Home
         <div class="order-box">
           {% for order in orders reversed %}
           <div class="order-card {{ order.is_active }}">
-            <h4>
-              #{{ order.order_no }}
-              <span>{{ order.created_at }}</span>
-            </h4>
+            <div class="order-card-summary">
+              <h4>#{{ order.order_no }}</h4>
+              {% if order.is_active == True %}
+              <span id="true">Active</span>
+              {% else %}
+              <span id="closed">Closed</span>
+              {% endif %}
+              <div class="order-card-stats">
+                <p>
+                  <img src="{% static 'Images/cart-minus.png' %}" alt="cart">
+                  {{ order.order.count }} Items
+                </p>
+                <!-- |
+                <p>
+                  <img src="{% static 'Images/wallet.png' %}" alt="money">
+                  {% for order_item in all_order_items %}
+                  {% if order_item.order == order %}
+                  {{ order_item.item_price }}
+                  {% endif %}
+                  {% endfor %}
+                  Ksh {{ total|add:tax|intcomma }}
+                </p> -->
+              </div>
+              <p class="order-date">{{ order.created_at }}</p>
+            </div>
             <div class="card-content {{ order.is_active }}">
               <hr>
               <div class="card-content-box">
