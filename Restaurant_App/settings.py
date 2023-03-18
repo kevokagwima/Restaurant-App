@@ -32,6 +32,10 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 
+STRIPE_PUBLIC_KEY = "pk_test_51J8POQHxOFRqyd61FZFpd9b0XmhOoxL5ItkjkGdtZqtDFhFG170f4FdBNviLzGutkTkfWxvuyyyMQYlJtzrR3TUO00kpgZ0rWU"
+STRIPE_SECRET_KEY = os.environ["Stripe_api_key"]
+STRIPE_WEBHOOK_KEY= ""
+
 # Application definition
 
 INSTALLED_APPS = [

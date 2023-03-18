@@ -69,6 +69,7 @@ class Sides(models.Model):
 class Order(models.Model):
   order_no = models.IntegerField()
   created_at = models.DateTimeField(default=datetime.now())
+  total = models.IntegerField(default=0)
   is_active = models.BooleanField(default=True)
 
   def __str__(self):
@@ -76,7 +77,7 @@ class Order(models.Model):
 
 class OrderItems(models.Model):
   order = models.ForeignKey(Order, related_name="order", on_delete=models.CASCADE)
-  unique_id = models.IntegerField(default=random.randint(100000,999999))
+  unique_id = models.IntegerField(default=random.randint(100000,999999), unique=True)
   item_name = models.TextField(max_length=30)
   item_price = models.IntegerField(default=0)
   item_quantity = models.IntegerField(default=1)
@@ -86,4 +87,4 @@ class OrderItems(models.Model):
     verbose_name_plural = "Order Items"
 
   def __str__(self):
-    return f"{self.item_name} - {self.order}"
+    return f"{self.item_name} - {self.unique_id}"

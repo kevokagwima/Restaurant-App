@@ -4,7 +4,10 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.core import serializers
 from django.contrib import messages
-import random
+from django.conf import settings
+import random, stripe
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def home(request):
   categories = Category.objects.all().exclude(title=["Meals", "Sides"])
@@ -27,6 +30,9 @@ def home(request):
   for order_item in order_items:
     total.append(order_item.item_price*order_item.item_quantity)
   tax = (10*sum(total))/100
+  if active_order:
+    active_order.total = sum(total) + tax
+    active_order.save()
   context = {
     'categories': categories,
     'meal_category': meal_category,
@@ -106,7 +112,7 @@ def newOrder(request, pk):
 def decrease_quantity(request, pk):
   active_order = Order.objects.filter(is_active=True).first()
   if active_order:
-    order_item = OrderItems.objects.filter(item_name=pk).first()
+    order_item = OrderItems.objects.filter(item_name=pk, order=active_order).first()
     if order_item and order_item.item_quantity >= 2:
       order_item.item_quantity = order_item.item_quantity - 1
       order_item.save()
@@ -137,10 +143,67 @@ def closeOrder(request, pk):
     if active_order:
       active_order.is_active = False
       active_order.save()
-      messages.success(request, "Order has been closed")
+      messages.success(request, "Order has been canceled")
     else:
       messages.error(request, "Order not found")
   except:
     messages.error(request, "An error occured")
 
   return redirect("Order:home")
+
+  def post(self, request, *args, **kwargs):
+    YOUR_DOMAIN = "http://127.0.0.1:8000"
+    checkout_session = stripe.checkout.Session.create(
+      line_items = [
+        {
+          'price': '{{PRICE_ID}}',
+          'quantity': 1,
+        },
+      ],
+      mode = 'payment',
+      success_url = YOUR_DOMAIN + '/success/',
+      cancel_url = YOUR_DOMAIN + '/cancel/',
+    )
+    return JsonResponse({
+      'id': checkout_session.id
+    })
+
+def payment(request):
+  try:
+    YOUR_DOMAIN = "http://127.0.0.1:8000/"
+    active_order = Order.objects.filter(is_active=True).first()
+    if active_order.total < 50:
+      messages.warning(request, "Orders less than ksh 50 are paid via cash")
+      return redirect("Order:home")
+    checkout_session = stripe.checkout.Session.create(
+      line_items = [
+        {
+          'price_data': {
+            'currency': 'KES',
+            'product_data': {
+              'name': f'Order #{active_order.order_no}',
+            },
+            'unit_amount': (active_order.total * 100),
+          },
+          'quantity': 1,
+        }
+      ],
+      mode = 'payment',
+      success_url = YOUR_DOMAIN + 'success/',
+      cancel_url = YOUR_DOMAIN + 'cancel/',
+    )
+    return redirect(checkout_session.url)
+  except:
+    messages.error(request, "Payment could not be processed")
+    return redirect('Order:home')
+
+def success(request):
+  active_order = Order.objects.filter(is_active=True).first()
+  active_order.is_active = False
+  active_order.save()
+  messages.success(request, "Payment was successfull")
+  return redirect('Order:home')
+
+def cancel(request):
+  messages.error(request, "Payment could not be processed")
+  return redirect('Order:home')

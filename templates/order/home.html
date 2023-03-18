@@ -243,10 +243,30 @@ Home
                     <span class="price">Ksh {{ total|add:tax|intcomma }}</span>
                   </div>
                 </div>
-                <a href="{% url 'Mpesa:lipa_na_mpesa' %}">
-                  <button id="pay">Checkout</button>
-                </a>
-                <a href="#" onclick="Dajaxice.order.multiply(Dajax.process)">
+                <div class="payment">
+                  {% if active_order.total > 50 %}
+                  <a href="{% url 'Order:payment' %}">
+                    <button id="pay">
+                      <img src="{% static 'Images/credit-card.png' %}" alt="credit-card">
+                      Card
+                    </button>
+                  </a>
+                  <a href="#">
+                    <button disabled id="cash">
+                      <img src="{% static 'Images/coins.png' %}" alt="coins">
+                      Cash
+                    </button>
+                  </a>
+                  {% else %}
+                  <a href="#">
+                    <button disabled id="cash">
+                      <img src="{% static 'Images/coins.png' %}" alt="coins">
+                      Cash
+                    </button>
+                  </a>
+                  {% endif %}
+                </div>
+                <a href="{% url 'Order:close-order' active_order.order_no %}">
                   <button id="cancel">Cancel</button>
                 </a>
               </div>
@@ -282,16 +302,11 @@ Home
                   <img src="{% static 'Images/cart-minus.png' %}" alt="cart">
                   {{ order.order.count }} Items
                 </p>
-                <!-- |
+                |
                 <p>
                   <img src="{% static 'Images/wallet.png' %}" alt="money">
-                  {% for order_item in all_order_items %}
-                  {% if order_item.order == order %}
-                  {{ order_item.item_price }}
-                  {% endif %}
-                  {% endfor %}
-                  Ksh {{ total|add:tax|intcomma }}
-                </p> -->
+                  Ksh {{ order.total|intcomma }}
+                </p>
               </div>
               <p class="order-date">{{ order.created_at }}</p>
             </div>
