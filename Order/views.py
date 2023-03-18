@@ -168,7 +168,7 @@ def closeOrder(request, pk):
       'id': checkout_session.id
     })
 
-def payment(request):
+def card_payment(request):
   try:
     YOUR_DOMAIN = "http://127.0.0.1:8000/"
     active_order = Order.objects.filter(is_active=True).first()
@@ -196,6 +196,13 @@ def payment(request):
   except:
     messages.error(request, "Payment could not be processed")
     return redirect('Order:home')
+
+def cash_payment(request):
+  active_order = Order.objects.filter(is_active=True).first()
+  context = {
+    'active_order': active_order
+  }
+  return render(request, "Order/cash.html", context)
 
 def success(request):
   active_order = Order.objects.filter(is_active=True).first()

@@ -11,7 +11,8 @@ urlpatterns = [
   path("decrease-quantity/<str:pk>/", views.decrease_quantity, name="decrease-quantity"),
   path("remove-item/<int:pk>/", views.removeItem, name="remove-item"),
   path("close-order/<int:pk>/", views.closeOrder, name="close-order"),
-  path("payment/", views.payment, name="payment"),
+  path("card-payment/", views.card_payment, name="card-payment"),
+  path("cash-payment/", views.cash_payment, name="cash-payment"),
   path("success/", views.success, name="success"),
   path("cancel/", views.cancel, name="cancel"),
 ]

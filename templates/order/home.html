@@ -245,21 +245,21 @@ Home
                 </div>
                 <div class="payment">
                   {% if active_order.total > 50 %}
-                  <a href="{% url 'Order:payment' %}">
+                  <a href="{% url 'Order:card-payment' %}">
                     <button id="pay">
                       <img src="{% static 'Images/credit-card.png' %}" alt="credit-card">
                       Card
                     </button>
                   </a>
-                  <a href="#">
-                    <button disabled id="cash">
+                  <a href="{% url 'Order:cash-payment' %}">
+                    <button id="cash">
                       <img src="{% static 'Images/coins.png' %}" alt="coins">
                       Cash
                     </button>
                   </a>
                   {% else %}
-                  <a href="#">
-                    <button disabled id="cash">
+                  <a href="{% url 'Order:cash-payment' %}">
+                    <button id="cash">
                       <img src="{% static 'Images/coins.png' %}" alt="coins">
                       Cash
                     </button>
