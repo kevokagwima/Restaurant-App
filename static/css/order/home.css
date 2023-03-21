@@ -448,10 +448,8 @@
 }
 
 .cart-items {
-  background-color: rgb(255, 255, 255, 0.3);
   display: grid;
   align-items: center;
-  min-height: 100%;
 }
 
 .empty {

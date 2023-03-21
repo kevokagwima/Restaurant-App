@@ -233,14 +233,17 @@ Home
                     <p>Subtotal</p>
                     <span id="price">Ksh {{ total|intcomma }}</span>
                   </div>
-                  <div class="amount-info">
-                    <p>Tax 10%</p>
+                  <!-- <div class="amount-info">
+                    <p>VAT</p>
                     <span id="price">Ksh {{ tax }}</span>
-                  </div>
+                  </div> -->
                   <hr>
                   <div class="amount-info total">
                     <p>Total</p>
-                    <span class="price">Ksh {{ total|add:tax|intcomma }}</span>
+                    <span class="price">
+                      <!-- Ksh {{ total|add:tax|intcomma }} -->
+                      Ksh {{ total|intcomma }}
+                    </span>
                   </div>
                 </div>
                 <div class="payment">
@@ -285,7 +288,7 @@ Home
         </div>
       </div>
       <div id="order" class="tabcontent">
-        <h4 id="tab-header">Orders</h4>
+        <h4 id="tab-header">Orders ({{ orders.count }})</h4>
         <p id="more-info">This tab shows previous active/completed/closed orders</p>
         <div class="order-box">
           {% for order in orders reversed %}

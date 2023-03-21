@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from Inventory.models import *
 from django.contrib.auth.models import User
 from django.http import JsonResponse
@@ -9,6 +10,7 @@ import random, stripe
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+@login_required(login_url='/login')
 def home(request):
   categories = Category.objects.all().exclude(title=["Meals", "Sides"])
   meal_category = Category.objects.filter(title="Meals").first()
@@ -31,7 +33,7 @@ def home(request):
     total.append(order_item.item_price*order_item.item_quantity)
   tax = (10*sum(total))/100
   if active_order:
-    active_order.total = sum(total) + tax
+    active_order.total = sum(total)
     active_order.save()
   context = {
     'categories': categories,
@@ -202,7 +204,28 @@ def cash_payment(request):
   context = {
     'active_order': active_order
   }
+  if request.method == "POST":
+    amount = request.POST["cash-paid"]
+    request.session["cash-paid"] = amount
+    if int(amount) < active_order.total:
+      messages.error(request, "The cash paid is less than the order total")
+    elif int(amount) == active_order.total:
+      return redirect('Order:success')
+    elif int(amount) > active_order.total:
+      messages.info(request, "Calculating the change")
+      return redirect('Order:cash-change')
   return render(request, "Order/cash.html", context)
+
+def cash_change(request):
+  active_order = Order.objects.filter(is_active=True).first()
+  cash_paid = request.session["cash-paid"]
+  change = int(cash_paid) - active_order.total
+  context = {
+    'active_order': active_order,
+    'change': change
+  }
+
+  return render(request, "Order/change.html", context)
 
 def success(request):
   active_order = Order.objects.filter(is_active=True).first()

@@ -13,6 +13,7 @@ urlpatterns = [
   path("close-order/<int:pk>/", views.closeOrder, name="close-order"),
   path("card-payment/", views.card_payment, name="card-payment"),
   path("cash-payment/", views.cash_payment, name="cash-payment"),
+  path("cash-change/", views.cash_change, name="cash-change"),
   path("success/", views.success, name="success"),
   path("cancel/", views.cancel, name="cancel"),
 ]
