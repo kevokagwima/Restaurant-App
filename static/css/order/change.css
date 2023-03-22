@@ -1,0 +1,20 @@
+.total p {
+  color: var(--grey);
+  font-size: 2ch;
+  margin-bottom: 2rem;
+}
+
+#proceed {
+  padding: 1em;
+  background-color: var(--main-bgcolor);
+  border-radius: var(--border-radius);
+  color: var(--white);
+  grid-column: 1/3;
+  min-width: 100%;
+  text-align: center;
+}
+
+.payment-box {
+  display: flex;
+  flex-direction: column;
+}

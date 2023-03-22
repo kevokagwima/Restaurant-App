@@ -22,20 +22,18 @@ Home
     </div>
     <hr id="hr">
     <div class="menu">
-      <div class="menu-item" onclick="openView(event, 'dashboard')" id="defaultOpen">
+      <div class="menu-item" onclick="openView(event, 'dashboard')">
         <div class="menu-item-img">
           <img src="{% static 'Images/menu.png' %}" alt="dashboard">
         </div>
         <p>Menu</p>
       </div>
-      <a href="{% url 'Inventory:home' %}">
-        <div class="menu-item">
-          <div class="menu-item-img">
-            <img src="{% static 'Images/inventory.png' %}" alt="order">
-          </div>
-          <p>Inventory</p>
+      <div class="menu-item" onclick="openView(event, 'inventory')" id="defaultOpen">
+        <div class="menu-item-img">
+          <img src="{% static 'Images/inventory.png' %}" alt="order">
         </div>
-      </a>
+        <p>Inventory</p>
+      </div>
       <div class="menu-item" onclick="openView(event, 'order')">
         <div class="menu-item-img">
           <img src="{% static 'Images/order.png' %}" alt="dashboard">
@@ -283,6 +281,60 @@ Home
                 </div>
               </div>
               {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="inventory" class="tabcontent">
+        <h4 id="tab-header">Inventory</h4>
+        <p id="more-info">This tab shows all your inventory information</p>
+        <div class="inventory">
+          <div class="inventory-box">
+            <div class="inventory-div" onclick="openInventory(event, 'inventory-dashboard')">
+              <img src="{% static 'Images/speedometer.png' %}" alt="dashboard">
+              <h4>Dashboard</h4>
+            </div>
+            <div class="inventory-div" onclick="openInventory(event, 'item')" id="defaultOpenz">
+              <img src="{% static 'Images/product.png' %}" alt="items">
+              <h4>Items</h4>
+            </div>
+            <div class="inventory-div" onclick="openInventory(event, 'invoice')">
+              <img src="{% static 'Images/invoice.png' %}" alt="Invoices">
+              <h4>Invoices</h4>
+            </div>
+            <div class="inventory-div" onclick="openInventory(event, 'supplier')">
+              <img src="{% static 'Images/postman.png' %}" alt="Supplier">
+              <h4>Suppliers</h4>
+            </div>
+            <div class="inventory-div" onclick="openInventory(event, 'report')">
+              <img src="{% static 'Images/statistics.png' %}" alt="Reports">
+              <h4>Reports</h4>
+            </div>
+          </div>
+          <div class="inventory-content-area">
+            <div id="inventory-dashboard" class="tabcontentz">
+              <h4 id="tab-header">Dashboard</h4>
+              <div class="inventory-dashboard">
+
+              </div>
+            </div>
+            <div id="item" class="tabcontentz">
+              <h4 id="tab-header">
+                Items
+                <button id="add-item">Add Item</button>
+              </h4>
+              <div class="inventory-items">
+                {{ all_items }}
+              </div>
+            </div>
+            <div id="invoice" class="tabcontentz">
+              <h4 id="tab-header">Invoice</h4>
+            </div>
+            <div id="supplier" class="tabcontentz">
+              <h4 id="tab-header">Supplier</h4>
+            </div>
+            <div id="report" class="tabcontentz">
+              <h4 id="tab-header">Reports</h4>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from Inventory.models import *
+from .forms import NewItemForm
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.core import serializers
@@ -18,6 +19,11 @@ def home(request):
   items = Item.objects.all()
   meals = Meals.objects.all()
   sides = Sides.objects.all()
+  all_items = []
+  for item,side,meal in zip(items,sides,meals):
+    all_items.append(item)
+    all_items.append(side)
+    all_items.append(meal)
   orders = Order.objects.all()
   all_order_items = OrderItems.objects.all()
   user = request.user
@@ -25,10 +31,6 @@ def home(request):
   active_order = Order.objects.filter(is_active=True).first()
   order_items = OrderItems.objects.filter(order=active_order).all()
   total = []
-  amount_dict = {
-    'order': 1,
-    'amount': 100
-  }
   for order_item in order_items:
     total.append(order_item.item_price*order_item.item_quantity)
   tax = (10*sum(total))/100
@@ -50,6 +52,8 @@ def home(request):
     'tax': int(tax),
     'orders': orders,
     'all_order_items': all_order_items,
+    'form': NewItemForm(),
+    'all_items': all_items
   }
 
   return render(request, "order/home.html", context)

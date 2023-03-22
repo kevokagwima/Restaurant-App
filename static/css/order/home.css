@@ -60,18 +60,6 @@
   gap: 0.6rem;
 }
 
-.active,
-.actives,
-.menu-item:hover {
-  background-color: var(--white);
-  color: var(--sec-bgcolor);
-}
-
-.menu-item:hover {
-  background-color: rgb(255, 255, 255, 0.5);
-  color: var(--white);
-}
-
 .menu-item-img {
   max-height: 1.5rem;
 }
@@ -496,6 +484,52 @@
   max-height: 1.5rem;
 }
 
+.inventory {
+  margin-top: 1rem;
+  display: grid;
+  gap: 2rem;
+}
+
+.inventory-box {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  background-color: var(--main-bgcolor);
+  padding: 0.2rem;
+  border-radius: 30rem;
+}
+
+.inventory-box div {
+  padding: 0.4rem;
+  border-radius: 30rem;
+  cursor: pointer;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.inventory-box div > img {
+  max-height: 1.5rem;
+}
+
+#add-item {
+  border: none;
+  padding: 0.4rem 1rem;
+  font-family: var(--font-1);
+  background-color: blue;
+  border-radius: var(--border-radius);
+  color: var(--white);
+  cursor: pointer;
+}
+
+.inventory-dashboard,
+.inventory-items {
+  background-color: var(--white);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin-top: 1rem;
+}
+
 #pay,
 #cash {
   background-color: var(--main-bgcolor);
@@ -622,4 +656,13 @@
 #closed {
   background-color: #fef3f1;
   color: var(--red);
+}
+
+.active,
+.actives,
+.activez,
+.menu-item:hover,
+.inventory-box div:hover {
+  background-color: var(--white);
+  color: black;
 }

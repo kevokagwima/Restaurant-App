@@ -14,6 +14,22 @@ function openView(evt, tabName) {
 
 document.getElementById("defaultOpen").click();
 
+function openInventory(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontentz");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("inventory-div");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" activez", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " activez";
+}
+
+document.getElementById("defaultOpenz").click();
+
 function menuItem(evt, tabName) {
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontents");

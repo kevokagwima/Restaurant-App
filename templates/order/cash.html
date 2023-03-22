@@ -1,0 +1,43 @@
+{% extends 'order/base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block head %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/order/cash.css' %}">
+{% endblock %}
+
+{% block title %}
+Cash Payment
+{% endblock %}
+
+{% block body %}
+<div class="cash-box">
+  <div class="directions">
+    <a href="{% url 'Order:home' %}">
+      <img src="{% static 'Images/arrow-alt-left.png' %}" alt="back">
+      <p>Back</p>
+    </a>
+  </div>
+  <div class="payment-box">
+    <div class="order-info">
+      <h1>Order #{{ active_order.order_no }}</h1>
+      <p>{{ active_order.order.count }} Items</p>
+    </div>
+    <hr>
+    <div class="total">
+      <h4>Ksh {{ active_order.total|intcomma }}</h4>
+    </div>
+    <div class="form">
+      <form action="{% url 'Order:cash-payment' %}" method="post">
+        {% csrf_token %}
+        <input required type="number" name="cash-paid" id="" placeholder="Enter Amount Paid">
+        <button type="submit">Pay</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'Js/home.js' %}"></script>
+{% endblock %}
